@@ -112,6 +112,14 @@ struct ContentView: View {
             tieAlert.toggle()
         }
     }
+    
+    func whoBeatWho() -> String {
+        if didUserWin {
+            return "\(userChoice) beats \(computerChoice)"
+        } else {
+            return "\(computerChoice) beats \(userChoice)"
+        }
+    }
 
     
     var body: some View {
@@ -202,7 +210,7 @@ struct ContentView: View {
         .navigationTitle("じゃんけん❗️")
         .navigationBarTitleDisplayMode(.inline)
     }
-    .alert("\(computerChoice) beats \(userChoice), you \(returnUserWin())!", isPresented: $showingScore) {
+    .alert("\(whoBeatWho()), you \(returnUserWin())!", isPresented: $showingScore) {
         Button("Continue") {
             computerChoice = "💭"
             userChoice = "💭"
