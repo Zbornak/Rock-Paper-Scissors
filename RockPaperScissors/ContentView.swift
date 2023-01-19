@@ -27,14 +27,13 @@ extension View {
 struct ContentView: View {
     @State private var userChoice = ""
     @State private var computerChoice = ""
-    @State private var userShouldLose = Bool.random()
     @State private var userScore = 0
     @State private var showingScore = false
     @State private var tieAlert = false
     @State private var endGame = false
     @State private var didUserWin = true
     
-    private var computerChoices = ["rock", "paper", "scissors"].shuffled()
+    private var computerChoices = ["rock", "paper", "scissors"]
     
     func returnUserWin() -> String {
        if didUserWin == true {
@@ -79,43 +78,38 @@ struct ContentView: View {
     
     func playerWins() {
         userScore += 1
-        toggleAlerts()
         didUserWin = true
+        toggleAlerts()
+    }
+    
+    func computerWins() {
+        userScore = 0
+        didUserWin = false
+        toggleAlerts()
     }
     
     func computerChoiceMaker() {
-        if computerChoice == "rock" && userShouldLose && userChoice == "paper" {
+        if computerChoice == "rock" && userChoice == "paper" {
             playerWins()
-            toggleAlerts()
-        } else if computerChoice == "rock" && !userShouldLose && userChoice == "scissors" {
-            playerWins()
-            toggleAlerts()
+        } else if computerChoice == "rock" && userChoice == "scissors" {
+            computerWins()
         } else if computerChoice == "rock" && userChoice == "rock" {
             //tie
             tieAlert.toggle()
-        } else if computerChoice == "paper" && userShouldLose && userChoice == "scissors" {
+        } else if computerChoice == "paper" && userChoice == "scissors" {
             playerWins()
-            toggleAlerts()
-        } else if computerChoice == "paper" && !userShouldLose && userChoice == "rock" {
-            playerWins()
-            toggleAlerts()
+        } else if computerChoice == "paper" && userChoice == "rock" {
+            computerWins()
         } else if computerChoice == "paper" && userChoice == "paper" {
             //tie
             tieAlert.toggle()
-        } else if computerChoice == "scissors" && userShouldLose && userChoice == "paper" {
+        } else if computerChoice == "scissors" && userChoice == "paper" {
             playerWins()
-            toggleAlerts()
-        } else if computerChoice == "scissors" && !userShouldLose && userChoice == "rock" {
+        } else if computerChoice == "scissors" && userChoice == "rock" {
             playerWins()
-            toggleAlerts()
         } else if computerChoice == "scissors" && userChoice == "scissors" {
             //tie
             tieAlert.toggle()
-        } else {
-            //player loses
-            userScore = 0
-            toggleAlerts()
-            didUserWin = false
         }
     }
 
@@ -142,21 +136,21 @@ struct ContentView: View {
                     HStack {
                         Button("🪨") {
                             userChoice = "rock"
-                            computerChoice = computerChoices[0]
+                            computerChoice = computerChoices.randomElement()!
                             computerChoiceMaker()
                         }
                         .buttonStyle()
                                 
                         Button("📄") {
                             userChoice = "paper"
-                            computerChoice = computerChoices[0]
+                            computerChoice = computerChoices.randomElement()!
                             computerChoiceMaker()
                         }
                         .buttonStyle()
                                 
                         Button("✂️") {
                             userChoice = "scissors"
-                            computerChoice = computerChoices[0]
+                            computerChoice = computerChoices.randomElement()!
                             computerChoiceMaker()
                         }
                         .buttonStyle()
