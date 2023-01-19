@@ -195,6 +195,7 @@ struct ContentView: View {
             .padding(.vertical, 20)
             .background(.thinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 20))
+            .padding()
    
             VStack {
                 Spacer()
@@ -207,7 +208,7 @@ struct ContentView: View {
         .navigationTitle("じゃんけん❗️")
         .navigationBarTitleDisplayMode(.inline)
     }
-    .alert("Rock beats scissors, you \(returnUserWin())!", isPresented: $showingScore) {
+    .alert("\(computerChoice) beats \(userChoice), you \(returnUserWin())!", isPresented: $showingScore) {
         Button("Continue") {
             computerChoice = "💭"
             userChoice = "💭"
