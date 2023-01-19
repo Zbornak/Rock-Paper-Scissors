@@ -11,7 +11,7 @@ struct CustomButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .buttonStyle(.bordered)
-            .font(.largeTitle)
+            .font(.system(size: 50))
             .background(Color(red: 254.0 / 255.0, green: 222.0 / 255.0, blue: 121.0 / 255.0))
             .shadow(radius: 30)
             .padding()
